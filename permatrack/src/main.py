@@ -37,6 +37,7 @@ def setup(rank, world_size):
 def cleanup():
     dist.destroy_process_group()
 
+# test test
 
 def get_optimizer(opt, model):
     if opt.optim == 'adam':
