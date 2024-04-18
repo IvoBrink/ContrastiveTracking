@@ -1,0 +1,26 @@
+
+# Repo and data
+Clone repo
+Download data
+
+# Conda env
+conda create --name MOT python=3.6
+export CUDA_HOME=$CONDA_PREFIX
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu111
+Pip install numpy scikit-learn
+
+# DCN
+cd $PermaTrack_ROOT/src/lib/model/networks/
+git clone https://github.com/CharlesShang/DCNv2/ 
+cd DCNv2
+./make.sh
+
+# Additional packages
+Pip install pandas pillow opencv-python
+
+
+
+
+
+export PYTHONPATH=~:[Insert local path here]/permatrack/src/lib/model/networks/DCNv2
+pip install pytorch_metric_learning==0.9.89
