@@ -7,7 +7,8 @@ from imageio.v3 import imread
 from random import sample, choice
 
 
-CAR = imread('car.png') / 255
+CAR1 = imread('car.png')[:,:,[2, 1, 0, 3]] / 255
+CAR2 = imread('mcqueen.png')[:,:,[2, 1, 0, 3]] / 255
 
 class Occlusion:
     def __init__(self, data_path, name, occluded_objects=1, occlusion_frames=48, occlusion_type='black'):
@@ -75,9 +76,10 @@ class Occlusion:
 
     def calc_margins(self, x, y):
         if self.type == 'car':
-            cy, cx = CAR.shape[:2]
+            self.CAR = choice([CAR1] * 9 + [CAR2])
+            cy, cx = self.CAR.shape[:2]
             scale = x/cx if cy/cx > y/x else y/cy # Scaling factor to ensure total occlusion
-            return np.asarray(CAR.shape[:2][::-1]) / 2 * scale * 1.1
+            return np.asarray(self.CAR.shape[:2][::-1]) / 2 * scale * 1.1
         return np.asarray([x, y]) / 2 * 1.1
     
     def calc_occlusion(self, traj, frame, marg):
@@ -88,7 +90,7 @@ class Occlusion:
         return occl_bbox.round().astype(int)
 
     def cut_car(self, x1, y1, x2, y2):
-        self.car = cv2.resize(CAR, dsize=(x2-x1, y2-y1), interpolation=cv2.INTER_CUBIC)
+        self.car = cv2.resize(self.CAR, dsize=(x2-x1, y2-y1), interpolation=cv2.INTER_CUBIC)
         if self.velocity[0] > 0: # Orient the car backwards so its movement looks forward
             self.car = np.flip(self.car, axis=1)
         
