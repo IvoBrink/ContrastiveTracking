@@ -5,13 +5,18 @@ import numpy as np
 
 from imageio.v3 import imread
 from random import sample, choice
+from PIL import Image
 
 
-CAR1 = imread('car.png')[:,:,[2, 1, 0, 3]] / 255
-CAR2 = imread('mcqueen.png')[:,:,[2, 1, 0, 3]] / 255
+PATH = 'data/cars/processed/'
+CARS = [imread(f"{PATH}{car}") / 255 for car in os.listdir(PATH)]
+
 
 class Occlusion:
-    def __init__(self, data_path, name, occluded_objects=1, occlusion_frames=48, occlusion_type='black'):
+    def __init__(self, data_path, name, id=1, occluded_objects=1, occlusion_frames=48, occlusion_type='black'):
+        self.path = data_path
+        self.name = name
+        self.id = str(id)
         df = pd.read_table(f'{data_path}/label_02/{name}.txt', delimiter=' ', header=None)
         self.df = df[df[2] != "DontCare"]
         self.find_trajectories()
@@ -76,7 +81,7 @@ class Occlusion:
 
     def calc_margins(self, x, y):
         if self.type == 'car':
-            self.CAR = choice([CAR1] * 9 + [CAR2])
+            self.CAR = choice(CARS)
             cy, cx = self.CAR.shape[:2]
             scale = x/cx if cy/cx > y/x else y/cy # Scaling factor to ensure total occlusion
             return np.asarray(self.CAR.shape[:2][::-1]) / 2 * scale * 1.1
@@ -118,12 +123,12 @@ class Occlusion:
         out = cv2.VideoWriter('test.mp4', cv2.VideoWriter_fourcc('M','J','P','G'), 24, self.dims[::-1].astype(int))
         for f in range(self.imgs.shape[0]):
             f = self.add_bboxes(f, line_thickness) if bboxes else self.imgs[f]
-            out.write((f*255).astype('uint8'))
+            out.write((f[:,:,::-1]*255).astype('uint8'))
         out.release()
     
     def add_bboxes(self, f, line_thickness):
         img = self.imgs[f]
-        red = np.asarray([0, 0, 1])
+        red = np.asarray([1, 0, 0])
         t = line_thickness // 2
         for _, (x1, y2, x2, y1) in self.df[self.df[0] == f].iloc[:, 6:10].round().astype(int).iterrows():
             img[y1-t:y1+t, x1:x2] = red
@@ -131,6 +136,13 @@ class Occlusion:
             img[y2:y1, x1-t:x1+t] = red
             img[y2:y1, x2-t:x2+t] = red
         return img
+    
+    def save_kitti(self):
+        for i, img in enumerate((self.imgs * 255).astype(np.uint8)):
+            path = os.path.join(self.path, 'occ', self.name, self.id, f"{i:06}.png")
+            if not os.path.exists(os.path.dirname(path)):
+                os.makedirs(os.path.dirname(path))
+            Image.fromarray(img).save(path)
 
 def read_and_occlude(path, video, occluded_objects=4, occlusion_frames=90, occlusion_type='car'):
     occ = Occlusion(
