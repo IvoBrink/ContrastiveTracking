@@ -37,6 +37,7 @@ def setup(rank, world_size):
 def cleanup():
     dist.destroy_process_group()
 
+
 def get_optimizer(opt, model):
     if opt.optim == 'adam':
         optimizer = torch.optim.Adam(model.parameters(), opt.lr)
