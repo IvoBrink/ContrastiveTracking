@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH --partition=gpu
+#SBATCH --gpus=1
+#SBATCH --job-name=kitti_occlusions
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=08:00:00
+#SBATCH --mem=32G
+#SBATCH --output=kitti_occlusions_%j.out
+#SBATCH --error=kitti_occlusions_%j.err
+
+module purge
+module load 2021
+module load 2021_OSSC
+module load Anaconda3/2021.05
+module load 2022
+module load Anaconda3/2022.05
+module load PyTorch/1.12.0-foss-2022a-CUDA-11.7.0
+module load torchvision/0.13.1-foss-2022a-CUDA-11.7.0
+
+source activate contrastive
+cd /home/scur2217/ContrastiveUpdated-main/permatrack/src
+
+# Fine-tuning the model
+python main.py tracking --exp_id kitti_occlusions_finetune --occlusion_thresh 0.3 --visibility_thresh 0.1 --dataset joint --dataset1 kitti_occlusions --dataset2 pd_tracking --same_aug_pre --hm_disturb 0.2 --lost_disturb 0.1 --fp_disturb 0.1 --gpus 0 --batch_size 2 --load_model ../models/pd_17fr_21ep_vis.pth --val_intervals 5 --is_recurrent --gru_filter_size 7 --input_len 17 --pre_thresh 0.3 --hm_weight 0.5 --const_v_over_occl --sup_invis --invis_hm_weight 25 --use_occl_len --occl_len_mult 5 --visibility --num_iter 3000 --num_epochs 10 --lr_step 5 --ltrb_amodal --only_ped --reuse_hm

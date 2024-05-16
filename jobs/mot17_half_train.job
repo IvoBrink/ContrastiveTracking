@@ -1,0 +1,24 @@
+#!/bin/bash
+#SBATCH --job-name=mot17_half_train
+#SBATCH --time=08:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=32G
+#SBATCH --gres=gpu:2
+#SBATCH --partition=gpu
+#SBATCH --output=mot17_half_train_%j.out
+#SBATCH --error=mot17_half_train_%j.err
+
+module purge
+module load 2021
+module load 2021_OSSC
+module load Anaconda3/2021.05
+module load 2022
+module load Anaconda3/2022.05
+module load PyTorch/1.12.0-foss-2022a-CUDA-11.7.0
+module load torchvision/0.13.1-foss-2022a-CUDA-11.7.0
+
+source activate contrastive
+cd /home/scur2217/ContrastiveUpdated-main/permatrack/src
+
+python main.py tracking --exp_id mot17_half --occlusion_thresh 0.15 --visibility_thresh 0.05 --dataset joint --dataset1 mot --dataset2 pd_tracking --dataset_version 17halftrain --same_aug_pre --hm_disturb 0.0 --lost_disturb 0.0 --fp_disturb 0.0 --gpus 0,1 --batch_size 1 --load_model ../models/crowdhuman.pth --val_intervals 1 --is_recurrent --gru_filter_size 7 --input_len 1 --pre_thresh 0.4 --hm_weight 0.5 --const_v_over_occl --sup_invis --invis_hm_weight 20 --use_occl_len --occl_len_mult 5 --visibility --num_iter 1600 --num_epochs 5 --lr_step 4 --visibility_thresh_eval 0.1 --ltrb_amodal --reuse_hm
