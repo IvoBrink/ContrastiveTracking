@@ -1,18 +1,30 @@
 #!/bin/bash
-#SBATCH --job-name=pd_training
-#SBATCH --time=04:00:00
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=32G
-#SBATCH --gres=gpu:1
+
 #SBATCH --partition=gpu
-#SBATCH --output=pd_training_%j.out
-#SBATCH --error=pd_training_%j.err
+#SBATCH --gpus=1
+#SBATCH --job-name=InstallEnvironment
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=00:29:00
+#SBATCH --mem=15000M
+#SBATCH --output=/home/scur2217/ContrastiveUpdated-main/slurms/slurm_pd_%A.out
 
-module load Python/3.8
-module load CUDA/11
+module purge
+module load 2021
+module load 2021_OSSC
+module load Anaconda3/2021.05
+module load 2022
+module load Anaconda3/2022.05
+module load PyTorch/1.12.0-foss-2022a-CUDA-11.7.0
+module load torchvision/0.13.1-foss-2022a-CUDA-11.7.0
 
-source path/to/your/venv/bin/activate
-cd path/to/your/project/
 
-python main.py tracking --exp_id pd_supinvis --occlusion_thresh 0.15 --visibility_thresh 0.05 --dataset pd_tracking --dataset_version val --same_aug_pre --hm_disturb 0.0 --lost_disturb 0.0 --fp_disturb 0.0 --gpus 0 --batch_size 2 --load_model ../models/nuScenes_3Ddetection_e140.pth --val_intervals 2 --is_recurrent --gru_filter_size 7 --input_len 17 --pre_thresh 0.4 --hm_weight 0.5 --num_epochs 21 --lr_step 7 --const_v_over_occl --sup_invis --invis_hm_weight 20 --use_occl_len --occl_len_mult 5 --num_iter 5000 --visibility --visibility_thresh_eval 0.2
+cd /home/scur2217/ContrastiveUpdated-main/permatrack/src
+# Activate your environment
+source activate contrastive
+
+# Run your code
+python main.py tracking --exp_id kitti_half --occlusion_thresh 0.15 --visibility_thresh 0.05 --dataset joint --dataset1 kitti_tracking --dataset2 pd_tracking --dataset_version train_half --same_aug_pre --hm_disturb 0.0 --lost_disturb 0.0 --fp_disturb 0.0 --gpus 0,1,2,3,4,5,6,7 --batch_size 2 --load_model ../models/nu_stage_3_17fr.pth --val_intervals 1 --is_recurrent --gru_filter_size 7 --input_len 17 --pre_thresh 0.4 --hm_weight 0.5 --const_v_over_occl --sup_invis --invis_hm_weight 20 --use_occl_len --occl_len_mult 5 --visibility --num_iter 5000 --num_epochs 5 --lr_step 4 --visibility_thresh_eval 0.2 --contrastive_loss
+
+CUDA_VISIBLE_DEVICES=0 python test.py tracking --exp_id occluded --dataset kitti_tracking --dataset_version val_half --track_thresh 0.4 --resume --is_recurrent --gru_filter_size 7  --num_gru_layers 1 --visibility --visibility_thresh_eval 0.2 --stream_test
+

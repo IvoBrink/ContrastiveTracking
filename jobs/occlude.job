@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#SBATCH --partition=gpu
+#SBATCH --gpus=2
+#SBATCH --job-name=InstallEnvironment
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=03:56:00
+#SBATCH --mem=60000M
+#SBATCH --output=/home/scur2217/ContrastiveUpdated-main/slurms/slurm_output_%A.out
+
+module purge
+module load 2021
+module load 2021_OSSC
+module load Anaconda3/2021.05
+module load 2022
+module load Anaconda3/2022.05
+module load PyTorch/1.12.0-foss-2022a-CUDA-11.7.0
+module load torchvision/0.13.1-foss-2022a-CUDA-11.7.0
+
+
+cd /home/scur2217/ContrastiveUpdated-main/permatrack/src
+# Activate your environment
+source activate contrastive
+
+# Run your code
+python main.py tracking --exp_id occluded --occlusion_thresh 0.15 --visibility_thresh 0.05 --dataset artificial_occlusions --dataset_version train_half --same_aug_pre --hm_disturb 0.0 --lost_disturb 0.0 --fp_disturb 0.0 --gpus 0,1,2,3,4,5,6,7 --batch_size 2 --load_model ../models/nu_stage_3_17fr.pth --val_intervals 1 --is_recurrent --gru_filter_size 7 --input_len 17 --pre_thresh 0.4 --hm_weight 0.5 --const_v_over_occl --sup_invis --invis_hm_weight 20 --use_occl_len --occl_len_mult 5 --visibility --num_iter 5000 --num_epochs 5 --lr_step 4 --visibility_thresh_eval 0.2 --contrastive_loss --save_all
+
+CUDA_VISIBLE_DEVICES=0 python test.py tracking --exp_id occluded --dataset kitti_tracking --dataset_version val_half --track_thresh 0.4 --resume --is_recurrent --gru_filter_size 7  --num_gru_layers 1 --visibility --visibility_thresh_eval 0.2 --stream_test
+

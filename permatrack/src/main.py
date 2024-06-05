@@ -23,7 +23,7 @@ from tqdm import tqdm
 
 import torch.multiprocessing as mp
 import torch.distributed as dist
-import wandb
+# import wandb
 
 
 def setup(rank, world_size):
@@ -89,7 +89,7 @@ def launch_test(opt, epoch):
 
 
 def train(rank, opt, Dataset):
-    wandb.init(project="CV2_contrastive_permatrack", config=opt)
+    # wandb.init(project="CV2_contrastive_permatrack", config=opt)
     setup(rank, len(opt.gpus))
 
     logger = Logger(opt)
@@ -105,7 +105,7 @@ def train(rank, opt, Dataset):
 
     print('Creating model...')
     model = create_model(opt.arch, opt.heads, opt.head_conv, opt=opt)
-    wandb.watch(model, log_freq=10)
+    # wandb.watch(model, log_freq=10)
 
     if opt.freeze_backbone:
         model.freeze_backbone()
@@ -179,7 +179,8 @@ def train(rank, opt, Dataset):
         train_sampler = [train_sampler1, train_sampler2]
 
         train_loader = JointLoader(train_loader1, train_loader2)
-
+        
+    print("--------------------------------Train loader:\t", len(train_loader))
     print('Starting training...')
     for epoch in tqdm(range(start_epoch + 1, opt.num_epochs + 1)):
         if train_sampler is not None:

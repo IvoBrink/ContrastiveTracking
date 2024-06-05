@@ -85,9 +85,9 @@ if __name__ == '__main__':
       ann_dir = 'train'  if not ('test' in split) else split
       video_path = DATA_PATH + \
         '/data_tracking_image_2/{}ing/image_02/{}'.format(ann_dir, video_name)
-      # calib_path = DATA_PATH + 'data_tracking_calib/{}ing/calib/'.format(ann_dir) \
-      #   + '{}.txt'.format(video_name)
-      # calib = read_clib(calib_path)
+      calib_path = DATA_PATH + 'data_tracking_calib/{}ing/calib/'.format(ann_dir) \
+        + '{}.txt'.format(video_name)
+      calib = read_clib(calib_path)
       image_files = sorted(os.listdir(video_path))
       num_images_video = len(image_files)
       if CREATE_HALF_LABEL and 'half' in split:
@@ -102,7 +102,7 @@ if __name__ == '__main__':
         num_images += 1
         image_info = {'file_name': '{}/{:06d}.png'.format(video_name, j),
                       'id': num_images,
-                      # 'calib': calib.tolist(),
+                      'calib': calib.tolist(),
                       'video_id': i + 1,
                       'frame_id': j + 1 - image_range[0]}
         ret['images'].append(image_info)
