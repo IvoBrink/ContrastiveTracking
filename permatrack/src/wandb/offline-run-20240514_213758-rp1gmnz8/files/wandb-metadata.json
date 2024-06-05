@@ -1,0 +1,477 @@
+{
+    "os": "Linux-4.18.0-372.80.1.el8_6.x86_64-x86_64-with-glibc2.28",
+    "python": "3.10.4",
+    "heartbeatAt": "2024-05-14T19:37:58.241764",
+    "startedAt": "2024-05-14T19:37:58.115916",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "tracking",
+        "--exp_id",
+        "mot17_without_contrastive",
+        "--occlusion_thresh",
+        "0.15",
+        "--visibility_thresh",
+        "0.05",
+        "--dataset",
+        "joint",
+        "--dataset1",
+        "mot",
+        "--dataset2",
+        "pd_tracking",
+        "--dataset_version",
+        "17trainval",
+        "--same_aug_pre",
+        "--hm_disturb",
+        "0.0",
+        "--lost_disturb",
+        "0.0",
+        "--fp_disturb",
+        "0.0",
+        "--gpus",
+        "0",
+        "--batch_size",
+        "2",
+        "--load_model",
+        "../models/crowdhuman.pth",
+        "--val_intervals",
+        "1",
+        "--is_recurrent",
+        "--gru_filter_size",
+        "7",
+        "--input_len",
+        "13",
+        "--pre_thresh",
+        "0.4",
+        "--hm_weight",
+        "0.5",
+        "--const_v_over_occl",
+        "--sup_invis",
+        "--invis_hm_weight",
+        "20",
+        "--use_occl_len",
+        "--occl_len_mult",
+        "5",
+        "--visibility",
+        "--num_iter",
+        "1600",
+        "--num_epochs",
+        "5",
+        "--lr_step",
+        "4",
+        "--visibility_thresh_eval",
+        "0.1",
+        "--ltrb_amodal",
+        "--reuse_hm",
+        "--input_h=256",
+        "--input_w=512",
+        "--only_ped",
+        "--dataset_fraction=1.0",
+        "--save_all"
+    ],
+    "state": "running",
+    "program": "/gpfs/home5/scur2217/ContrastiveUpdated-main/permatrack/src/main.py",
+    "codePathLocal": "main.py",
+    "codePath": "main.py",
+    "host": "gcn1.local.snellius.surf.nl",
+    "username": "scur2217",
+    "executable": "/sw/arch/RHEL8/EB_production/2022/software/Python/3.10.4-GCCcore-11.3.0/bin/python",
+    "cpu_count": 72,
+    "cpu_count_logical": 72,
+    "cpu_freq": {
+        "current": 2.4000000000000035,
+        "min": 2400.0,
+        "max": 2400.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        },
+        {
+            "current": 2.4,
+            "min": 2400.0,
+            "max": 2400.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 251.63616180419922,
+            "used": 6.401699066162109
+        }
+    },
+    "gpu": "NVIDIA A100-SXM4-40GB",
+    "gpu_count": 4,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA A100-SXM4-40GB",
+            "memory_total": 42949672960
+        },
+        {
+            "name": "NVIDIA A100-SXM4-40GB",
+            "memory_total": 42949672960
+        },
+        {
+            "name": "NVIDIA A100-SXM4-40GB",
+            "memory_total": 42949672960
+        },
+        {
+            "name": "NVIDIA A100-SXM4-40GB",
+            "memory_total": 42949672960
+        }
+    ],
+    "memory": {
+        "total": 503.51818084716797
+    }
+}

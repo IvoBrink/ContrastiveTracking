@@ -77,7 +77,6 @@ def prefetch_test(opt):
     data_loader = torch.utils.data.DataLoader(
         PrefetchDataset(opt, dataset, detector.pre_process),
         batch_size=1, shuffle=False, num_workers=0, pin_memory=True)
-
     results = {}
     num_iters = len(data_loader) if opt.num_iters < 0 else opt.num_iters
     bar = Bar('{}'.format(opt.exp_id), max=num_iters)
